@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BanHangOnlineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ctDonHang">
+    <Key>
+      <PropertyRef Name="soHD" />
+      <PropertyRef Name="maSP" />
+    </Key>
+    <Property Name="soHD" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="maSP" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="soLuong" Type="int" />
+    <Property Name="giaBan" Type="bigint" />
+    <Property Name="giamGia" Type="bigint" />
+  </EntityType>
+  <EntityType Name="donHang">
+    <Key>
+      <PropertyRef Name="soHD" />
+    </Key>
+    <Property Name="soHD" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="maKH" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="taiKhoan" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ngayDat" Type="datetime" />
+    <Property Name="daKichHoat" Type="bit" />
+    <Property Name="ngayGH" Type="datetime" />
+    <Property Name="diaChiGH" Type="nvarchar" MaxLength="250" />
+    <Property Name="ghiChu" Type="ntext" />
+  </EntityType>
+  <EntityType Name="khachHang">
+    <Key>
+      <PropertyRef Name="maKH" />
+    </Key>
+    <Property Name="maKH" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="tenKH" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="soDT" Type="varchar" MaxLength="20" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="diaChi" Type="nvarchar" MaxLength="250" />
+    <Property Name="ngaySinh" Type="datetime" />
+    <Property Name="gioiTinh" Type="bit" />
+    <Property Name="ghiChu" Type="ntext" />
+  </EntityType>
+  <EntityType Name="sanPham">
+    <Key>
+      <PropertyRef Name="maSP" />
+    </Key>
+    <Property Name="maSP" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="tenSP" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="hinhDD" Type="varchar(max)" />
+    <Property Name="ndTomTat" Type="nvarchar" MaxLength="2000" />
+    <Property Name="ngayDang" Type="datetime" />
+    <Property Name="loaiHang" Type="nvarchar" MaxLength="30" />
+    <Property Name="noiDung" Type="nvarchar" MaxLength="4000" />
+    <Property Name="taiKhoan" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="daDuyet" Type="bit" />
+    <Property Name="giaBan" Type="float" Nullable="false" />
+    <Property Name="giamGia" Type="float" />
+    <Property Name="ghiChu" Type="ntext" />
+    <Property Name="soLuong" Type="int" />
+  </EntityType>
+  <EntityType Name="taiKhoanTV">
+    <Key>
+      <PropertyRef Name="taiKhoan" />
+    </Key>
+    <Property Name="taiKhoan" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="matKhau" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="hoDem" Type="nvarchar" MaxLength="50" />
+    <Property Name="tenTV" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="ngaysinh" Type="datetime" />
+    <Property Name="gioiTinh" Type="bit" />
+    <Property Name="soDT" Type="nvarchar" MaxLength="20" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" />
+    <Property Name="diaChi" Type="nvarchar" MaxLength="250" />
+    <Property Name="trangThai" Type="bit" />
+    <Property Name="ghiChu" Type="ntext" />
+  </EntityType>
+  <Association Name="FK__ctDonHang__maSP__20C1E124">
+    <End Role="sanPham" Type="Self.sanPham" Multiplicity="1" />
+    <End Role="ctDonHang" Type="Self.ctDonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sanPham">
+        <PropertyRef Name="maSP" />
+      </Principal>
+      <Dependent Role="ctDonHang">
+        <PropertyRef Name="maSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ctDonHang__soHD__1FCDBCEB">
+    <End Role="donHang" Type="Self.donHang" Multiplicity="1" />
+    <End Role="ctDonHang" Type="Self.ctDonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="donHang">
+        <PropertyRef Name="soHD" />
+      </Principal>
+      <Dependent Role="ctDonHang">
+        <PropertyRef Name="soHD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__donHang__maKH__1B0907CE">
+    <End Role="khachHang" Type="Self.khachHang" Multiplicity="1" />
+    <End Role="donHang" Type="Self.donHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="khachHang">
+        <PropertyRef Name="maKH" />
+      </Principal>
+      <Dependent Role="donHang">
+        <PropertyRef Name="maKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__donHang__taiKhoa__1BFD2C07">
+    <End Role="taiKhoanTV" Type="Self.taiKhoanTV" Multiplicity="1" />
+    <End Role="donHang" Type="Self.donHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="taiKhoanTV">
+        <PropertyRef Name="taiKhoan" />
+      </Principal>
+      <Dependent Role="donHang">
+        <PropertyRef Name="taiKhoan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sanPham__taiKhoa__173876EA">
+    <End Role="taiKhoanTV" Type="Self.taiKhoanTV" Multiplicity="1" />
+    <End Role="sanPham" Type="Self.sanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="taiKhoanTV">
+        <PropertyRef Name="taiKhoan" />
+      </Principal>
+      <Dependent Role="sanPham">
+        <PropertyRef Name="taiKhoan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BanHangOnlineModelStoreContainer">
+    <EntitySet Name="ctDonHang" EntityType="Self.ctDonHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="donHang" EntityType="Self.donHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="khachHang" EntityType="Self.khachHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sanPham" EntityType="Self.sanPham" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="taiKhoanTV" EntityType="Self.taiKhoanTV" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__ctDonHang__maSP__20C1E124" Association="Self.FK__ctDonHang__maSP__20C1E124">
+      <End Role="sanPham" EntitySet="sanPham" />
+      <End Role="ctDonHang" EntitySet="ctDonHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ctDonHang__soHD__1FCDBCEB" Association="Self.FK__ctDonHang__soHD__1FCDBCEB">
+      <End Role="donHang" EntitySet="donHang" />
+      <End Role="ctDonHang" EntitySet="ctDonHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK__donHang__maKH__1B0907CE" Association="Self.FK__donHang__maKH__1B0907CE">
+      <End Role="khachHang" EntitySet="khachHang" />
+      <End Role="donHang" EntitySet="donHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK__donHang__taiKhoa__1BFD2C07" Association="Self.FK__donHang__taiKhoa__1BFD2C07">
+      <End Role="taiKhoanTV" EntitySet="taiKhoanTV" />
+      <End Role="donHang" EntitySet="donHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sanPham__taiKhoa__173876EA" Association="Self.FK__sanPham__taiKhoa__173876EA">
+      <End Role="taiKhoanTV" EntitySet="taiKhoanTV" />
+      <End Role="sanPham" EntitySet="sanPham" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

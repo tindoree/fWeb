@@ -1,0 +1,52 @@
+﻿@model IEnumerable<sanPham>
+
+@{
+    /**/
+
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2>ReSult</h2>
+<!-- Product Detail -->
+@foreach (var p in Model)
+{
+<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+    <!-- Block -->
+    <div class="block2">
+        <div class="block2-pic hov-img0">
+
+            <img src="@p.hinhDD" alt="IMG-PRODUCT">
+
+        </div>
+
+        <div class="block2-txt flex-w flex-t p-t-14">
+            <div class="block2-txt-child1 flex-col-l ">
+                <a href="~/Home/Product_Detail/@p.maSP" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                    @p.tenSP
+                </a>
+
+                <span class="stext-105 cl3">
+                    @Html.FormatValue(p.giaBan, "{0:0,0}VND")
+                </span>
+            </div>
+
+            <div class="block2-txt-child2 flex-r p-t-3">
+                <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                    <img class="icon-heart1 dis-block trans-04" src="/images/icons/icon-heart-01.png" alt="ICON">
+                    <img class="icon-heart2 dis-block trans-04 ab-t-l" src="/images/icons/icon-heart-02.png" alt="ICON">
+                </a>
+            </div>
+        </div>
+        <div class="nn-product-box-actions">
+            <button type="button" title="Add to Cart" class="btn btn-default add-to-cart" data-id="@p.maSP">
+                <span>Add to Cart</span>
+            </button>
+
+        </div>
+    </div>
+</div>
+
+}
+
+
